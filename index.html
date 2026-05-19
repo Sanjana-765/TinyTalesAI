@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TinyTales AI | Magical Stories from Children's Drawings</title>
+  <meta name="description"
+    content="TinyTales AI turns children's drawings into imaginative moral stories for families, teachers, and preschools." />
+  <link rel="preload" as="image" href="assets/storybook-magic.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <section class="login-gate" id="loginGate" aria-labelledby="loginTitle">
+    <div class="login-card">
+      <p class="eyebrow">Welcome to TinyTales AI</p>
+      <h1 id="loginTitle">Sign In to Continue</h1>
+      <p class="login-copy">Log in to start creating magical stories from drawings.</p>
+      <form class="login-form" id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" placeholder="you@example.com" required />
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" placeholder="Enter password" required />
+        <button class="primary-button login-btn" type="button" id="createAccountBtn">
+          <span class="button-spark" aria-hidden="true"></span>
+          Create Account
+        </button>
+        <button class="secondary-button login-btn-secondary" type="button" id="signInBtn">
+          <span class="button-spark" aria-hidden="true"></span>
+          Sign In
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="TinyTales AI home">
+      <span class="brand-mark" aria-hidden="true">
+        <span></span>
+      </span>
+      <span>TinyTales AI</span>
+    </a>
+    <nav class="nav-links" aria-label="Site navigation">
+      <a href="#how">How it works</a>
+      <a href="#preview">Story preview</a>
+      <a href="#schools">Schools</a>
+    </nav>
+    <div class="header-actions">
+      <button class="bedtime-toggle" type="button" id="bedtimeToggle" aria-pressed="false">
+        <span class="moon-icon" aria-hidden="true"></span>
+        <span>Bedtime Mode</span>
+      </button>
+      <div class="account-actions" id="accountActions" hidden>
+        <button class="account-btn" type="button" id="signOutBtn">Sign Out</button>
+        <button class="account-btn account-btn-danger" type="button" id="deleteAccountBtn">Delete Account</button>
+      </div>
+      <a class="nav-cta" href="#createSection">Create Story</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true">
+        <img src="assets/storybook-magic.png" alt="" />
+      </div>
+      <div class="doodle doodle-cloud cloud-one" aria-hidden="true"></div>
+      <div class="doodle doodle-cloud cloud-two" aria-hidden="true"></div>
+      <div class="doodle star star-one" aria-hidden="true"></div>
+      <div class="doodle star star-two" aria-hidden="true"></div>
+      <div class="doodle crayon crayon-one" aria-hidden="true"></div>
+      <div class="doodle sparkle sparkle-one" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">Safe creative AI for homes and classrooms</p>
+        <h1 id="hero-title">Turn Your Child's Drawings Into Magical Stories</h1>
+        <p class="hero-copy">
+          Upload a drawing and let AI create a fun moral story in seconds.
+        </p>
+        <button class="primary-button hero-get-started" type="button" id="getStartedBtn">
+          <span class="button-spark" aria-hidden="true"></span>
+          Get Started
+        </button>
+
+        <div class="create-entry" id="createSection" hidden>
+          <form class="upload-panel" id="create">
+            <label class="drop-zone" for="drawingInput">
+              <input id="drawingInput" type="file" accept="image/*" />
+              <span class="upload-icon" aria-hidden="true"></span>
+              <span class="drop-title">Drop a tiny masterpiece here</span>
+              <span class="drop-subtitle" id="fileName">PNG/JPG image</span>
+            </label>
+            <div class="age-selector">
+              <label for="ageRange">Age</label>
+              <select id="ageRange" aria-label="Story age range" hidden>
+                <option value="3-5">3-5</option>
+                <option value="6-8" selected>6-8</option>
+                <option value="9-12">9-12</option>
+              </select>
+              <button class="age-select-button" type="button" id="ageToggle" aria-haspopup="listbox"
+                aria-expanded="false">
+                <span id="ageValue">6-8</span>
+                <span class="age-arrow" aria-hidden="true"></span>
+              </button>
+              <div class="age-options" id="ageOptions" role="listbox" hidden>
+                <button type="button" role="option" data-age="3-5">3-5</button>
+                <button type="button" role="option" data-age="6-8" aria-selected="true">6-8</button>
+                <button type="button" role="option" data-age="9-12">9-12</button>
+              </div>
+            </div>
+            <button class="primary-button" type="button" id="createStory">
+              <span class="button-spark" aria-hidden="true"></span>
+              Create Story
+            </button>
+          </form>
+
+          <div id="upgradeMessage" class="upgrade-message" hidden>
+            <p class="upgrade-title">ðŸŒŸ You've used your 10 free stories!</p>
+            <p class="upgrade-sub">Upgrade to TinyTales Pro to keep creating magical stories.</p>
+            <a class="primary-button upgrade-btn" href="#">Upgrade Now</a>
+          </div>
+
+          <div class="object-confirmation" id="objectConfirmation" hidden>
+            <div>
+              <p class="confirm-label" id="analysisMessage">
+                TinyTales needs one quick check before writing.
+              </p>
+              <label for="objectInput">What are the main object and key details in the drawing?</label>
+            </div>
+            <div class="object-input-row">
+              <input id="objectInput" type="text" placeholder="Example: red apple under a tree" autocomplete="off" />
+              <button class="confirm-button" type="button" id="confirmObject">Confirm</button>
+            </div>
+            <p class="confirm-note" id="confirmNote">
+              This helps avoid mix-ups like reading an apple as a ball.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how-section" id="how" aria-labelledby="how-title">
+      <div class="section-heading">
+        <p class="eyebrow">Three little steps</p>
+        <h2 id="how-title">From doodle to bedtime-ready story</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-illustration upload-drawing" aria-hidden="true">
+            <span></span>
+          </div>
+          <span class="step-number">01</span>
+          <h3>Upload Drawing</h3>
+          <p>Parents and teachers add a child's artwork from any device.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-illustration ai-understands" aria-hidden="true">
+            <span></span>
+          </div>
+          <span class="step-number">02</span>
+          <h3>AI Understands the Artwork</h3>
+          <p>The image is interpreted for characters, places, colors, and mood.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-illustration story-ready" aria-hidden="true">
+            <span></span>
+          </div>
+          <span class="step-number">03</span>
+          <h3>Get a Personalized Moral Story</h3>
+          <p>Receive a warm story with an age-friendly lesson and joyful ending.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section preview-section" id="preview" aria-labelledby="preview-title">
+      <div class="section-heading">
+        <p class="eyebrow">Story preview</p>
+        <h2 id="preview-title">A child's picture becomes a page worth sharing</h2>
+      </div>
+
+      <div class="preview-layout">
+        <div class="drawing-frame">
+          <div class="paper-label">Example drawing</div>
+          <div class="child-drawing" id="drawingPreview" aria-label="Example child drawing">
+            <span class="sun"></span>
+            <span class="hill hill-a"></span>
+            <span class="hill hill-b"></span>
+            <span class="house"></span>
+            <span class="tree"></span>
+            <span class="kite"></span>
+          </div>
+        </div>
+
+        <article class="storybook" aria-label="AI-generated story preview">
+          <div class="book-spine" aria-hidden="true"></div>
+          <div class="book-page page-left">
+            <p class="story-kicker">TinyTales AI presents</p>
+            <h3 id="storyTitle">Milo and the Kind Little Kite</h3>
+            <p id="storyBody">
+              Milo drew a kite that wanted to fly higher than every cloud. But when a
+              little tree felt lonely below, the kite dipped down and danced beside it.
+              Milo learned that the brightest adventures are even better when we share
+              our joy with a friend.
+            </p>
+            <p class="moral" id="storyMoral">Moral: Kindness makes every adventure bigger.</p>
+          </div>
+          <div class="book-page page-right" aria-hidden="true">
+            <span class="page-spark"></span>
+            <span class="page-cloud"></span>
+            <span class="page-rainbow"></span>
+          </div>
+        </article>
+        <div class="story-actions" id="storyActions" hidden>
+          <button class="save-story-button" type="button" id="saveStory">
+            <span class="heart-icon" aria-hidden="true"></span>
+            Save Story
+          </button>
+          <button class="secondary-button" type="button" id="readStory">Read aloud</button>
+          <button class="secondary-button" type="button" id="printStory">Print story</button>
+          <button class="secondary-button" type="button" id="downloadPdf">Download as PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section saved-stories-section" id="savedStories" aria-labelledby="savedStoriesTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Your little library</p>
+        <h2 id="savedStoriesTitle">Saved Stories</h2>
+      </div>
+      <p class="saved-empty" id="savedEmpty">No saved stories yet. Create one and tap the heart to keep it.</p>
+      <div class="saved-stories-grid" id="savedStoriesGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="section features-section" aria-labelledby="features-title">
+      <div class="section-heading">
+        <p class="eyebrow">Made for growing imaginations</p>
+        <h2 id="features-title">Creative magic with grown-up trust</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-icon icon-wand" aria-hidden="true"></span>
+          <h3>Personalized Stories</h3>
+          <p>Every story reflects the uploaded artwork, not a generic prompt.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon icon-heart" aria-hidden="true"></span>
+          <h3>Moral Lessons</h3>
+          <p>Gentle takeaways support empathy, patience, courage, and sharing.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon icon-pencil" aria-hidden="true"></span>
+          <h3>Encourages Creativity</h3>
+          <p>Children see their own ideas treated as the beginning of a real story.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon icon-school" aria-hidden="true"></span>
+          <h3>Preschool Friendly</h3>
+          <p>Short, readable, classroom-ready stories fit early learning routines.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon icon-shield" aria-hidden="true"></span>
+          <h3>Safe for Kids</h3>
+          <p>Designed around warm language, age-aware output, and adult supervision.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="schools-section" id="schools" aria-labelledby="schools-title">
+      <div class="schools-copy">
+        <p class="eyebrow">For preschools and teachers</p>
+        <h2 id="schools-title">Scale storytelling across the whole classroom</h2>
+        <p>
+          TinyTales AI helps educators turn art time into literacy practice,
+          discussion, and take-home keepsakes.
+        </p>
+        <a class="secondary-button" href="#createSection" id="classroomBtn">Start a classroom story</a>
+      </div>
+      <div class="school-tools" aria-label="School features">
+        <article>
+          <span>Bulk</span>
+          <h3>Bulk story generation</h3>
+          <p>Create stories for a full class from one organized upload flow.</p>
+        </article>
+        <article>
+          <span>Play</span>
+          <h3>Classroom creativity activities</h3>
+          <p>Use drawings as prompts for vocabulary, sequencing, and sharing.</p>
+        </article>
+        <article>
+          <span>Print</span>
+          <h3>Download printable storybooks</h3>
+          <p>Send personalized books home as parent-friendly learning artifacts.</p>
+        </article>
+        <article>
+          <span>Talk</span>
+          <h3>Student storytelling engagement</h3>
+          <p>Invite children to describe their art and retell the story in their words.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section testimonials-section" aria-labelledby="testimonials-title">
+      <div class="section-heading">
+        <p class="eyebrow">Loved by little authors' grown-ups</p>
+        <h2 id="testimonials-title">Warm notes from families and educators</h2>
+      </div>
+      <div class="testimonial-grid">
+        <figure class="testimonial-card">
+          <blockquote>
+            "My daughter saw her drawing become a story and immediately ran for more
+            crayons. It made bedtime feel personal."
+          </blockquote>
+          <figcaption>
+            <span class="avatar avatar-peach" aria-hidden="true">S</span>
+            <span><strong>Sneha G B</strong> Parent</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonial-card">
+          <blockquote>
+            "The children were so proud hearing stories built from their own artwork.
+            It turned art class into language practice."
+          </blockquote>
+          <figcaption>
+            <span class="avatar avatar-mint" aria-hidden="true">M</span>
+            <span><strong>Ms. Meera</strong> Preschool teacher</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonial-card">
+          <blockquote>
+            "It feels playful, but the structure is thoughtful enough for classroom
+            projects and parent communication."
+          </blockquote>
+          <figcaption>
+            <span class="avatar avatar-lavender" aria-hidden="true">J</span>
+            <span><strong>Pradyumna N</strong> School director</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-cloud" aria-hidden="true"></div>
+    <div>
+      <a class="brand" href="#top" aria-label="TinyTales AI home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span>
+        </span>
+        <span>TinyTales AI</span>
+      </a>
+      <p>Magical stories from small hands and big imaginations.</p>
+    </div>
+    <div class="footer-links" aria-label="Footer links">
+      <a href="#how">How it works</a>
+      <a href="#preview">Preview</a>
+      <a href="#schools">Schools</a>
+    </div>
+  </footer>
+
+  <div class="loading-overlay" id="loadingOverlay" hidden role="status" aria-live="polite">
+    <div class="loading-card">
+      <span class="loading-spinner" aria-hidden="true"></span>
+      <p>Generating your magical story...</p>
+    </div>
+  </div>
+  <div class="bedtime-stars" id="bedtimeStars" aria-hidden="true">
+    <span class="night-star s1"></span>
+    <span class="night-star s2"></span>
+    <span class="night-star s3"></span>
+    <span class="night-star s4"></span>
+    <span class="night-star s5"></span>
+    <span class="night-star s6"></span>
+  </div>
+
+
+  <div id="pricingModal" class="pricing-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="pricingTitle">
+    <div class="pricing-card">
+      <button id="closePricing" class="pricing-close" aria-label="Close">âœ•</button>
+      <p class="eyebrow" style="text-align:center;">Unlock more magic</p>
+      <h2 id="pricingTitle" class="pricing-title">TinyTales Pro âœ¨</h2>
+      <p class="pricing-sub">Unlimited stories for your little ones</p>
+      <div class="pricing-plans">
+        <div class="plan-card">
+          <p class="plan-name">Monthly</p>
+          <p class="plan-price">â‚¹99</p>
+          <p class="plan-period">per month</p>
+          <ul class="plan-features">
+            <li>âœ… Unlimited stories</li>
+            <li>âœ… PDF downloads</li>
+            <li>âœ… All languages</li>
+          </ul>
+        </div>
+        <div class="plan-card plan-card--featured">
+          <p class="plan-badge">Best value</p>
+          <p class="plan-name">Yearly</p>
+          <p class="plan-price">â‚¹799</p>
+          <p class="plan-period">per year</p>
+          <ul class="plan-features">
+            <li>âœ… Unlimited stories</li>
+            <li>âœ… PDF downloads</li>
+            <li>âœ… Priority support</li>
+          </ul>
+        </div>
+      </div>
+      <button class="primary-button pricing-cta">Get Started</button>
+      <p class="pricing-demo-note">This is a demo. No real payment will be charged.</p>
+    </div>
+  </div>
+
+  <div id="errorPopup" class="error-popup" hidden role="alertdialog" aria-modal="true"
+    aria-labelledby="errorPopupTitle">
+    <div class="error-popup-card">
+      <p class="eyebrow">Please check</p>
+      <h3 id="errorPopupTitle">Something needs attention</h3>
+      <p id="errorPopupMessage" class="error-popup-message"></p>
+      <button id="errorPopupClose" class="secondary-button" type="button">Okay</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+
+</html>
+
